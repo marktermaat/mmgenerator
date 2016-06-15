@@ -27,7 +27,7 @@ public class MarkovFile {
     }
 
     /**
-     * Reads the file as a stream and sends each line to the given function
+     * Reads the file as a stream and processes each line
      * @param stream The file stream
      * @param lineFunction The function to send each line to
      */
@@ -35,6 +35,12 @@ public class MarkovFile {
         stream.forEach((line) -> readLine(line, lineFunction));
     }
 
+    /**
+     * Processes the given line and sends it to the given function
+     * Replaces groups of 1 or more spaces with tabs
+     * @param line The line to process
+     * @param lineFunction THe line function
+     */
     protected void readLine(final String line, final Consumer<List<String>> lineFunction) {
         final String tabbedLine = line.replaceAll(" +", "\t");
         lineFunction.accept(Arrays.asList(tabbedLine.split("\\t")));

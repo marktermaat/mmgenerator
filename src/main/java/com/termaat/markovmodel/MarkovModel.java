@@ -51,10 +51,10 @@ public class MarkovModel {
      */
     public String toString() {
         final List<String> columns = getColumns();
-        String string = "Previous state, " + columns.stream().collect(Collectors.joining(", ")) + "\n";
+        String string = "Previous state; " + columns.stream().collect(Collectors.joining("; ")) + "\n";
 
         string += model.entrySet().stream()
-                .map((entry) -> entry.getKey() + ", " + entry.getValue().toString(columns))
+                .map((entry) -> entry.getKey() + "; " + entry.getValue().toString(columns))
                 .collect(Collectors.joining("\n"));
         return string;
     }

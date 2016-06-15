@@ -64,10 +64,10 @@ public class MarkovModelTest {
         model.processStateSequence(Arrays.asList(new String[] {"A", "B", "A", "A"}));
 
         String expected = "";
-        expected += "Previous state, A, B, _end_\n";
-        expected += "_start_, 1.00, 0.00, 0.00\n";
-        expected += "A, 0.40, 0.40, 0.20\n";
-        expected += "B, 0.50, 0.00, 0.50";
+        expected += "Previous state; A; B; _end_\n";
+        expected += "_start_; 1.00; 0.00; 0.00\n";
+        expected += "A; 0.40; 0.40; 0.20\n";
+        expected += "B; 0.50; 0.00; 0.50";
         assertEquals(expected, model.toString());
     }
 
@@ -78,12 +78,12 @@ public class MarkovModelTest {
         model.processStateSequence(Arrays.asList(new String[] {"A", "B", "A", "A"}));
 
         String expected = "";
-        expected += "Previous state, A, B, _end_\n";
-        expected += "_start_, 1.00, 0.00, 0.00\n";
-        expected += "_start_-A, 0.50, 0.50, 0.00\n";
-        expected += "A-A, 0.00, 0.50, 0.50\n";
-        expected += "A-B, 0.50, 0.00, 0.50\n";
-        expected += "B-A, 1.00, 0.00, 0.00";
+        expected += "Previous state; A; B; _end_\n";
+        expected += "_start_; 1.00; 0.00; 0.00\n";
+        expected += "_start_-A; 0.50; 0.50; 0.00\n";
+        expected += "A-A; 0.00; 0.50; 0.50\n";
+        expected += "A-B; 0.50; 0.00; 0.50\n";
+        expected += "B-A; 1.00; 0.00; 0.00";
         assertEquals(expected, model.toString());
     }
 }

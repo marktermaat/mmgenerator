@@ -48,6 +48,6 @@ public class TargetStates {
     public String toString( final List<String> columns ) {
         return columns.stream()
                 .map((column) -> String.format("%.2f", states.getOrDefault(column, new StateProbability()).getTransitionProbability()))
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.joining("; "));
     }
 }
