@@ -32,6 +32,11 @@ public class MarkovFile {
      * @param lineFunction The function to send each line to
      */
     protected void readMarkovFileStream( Stream<String> stream, final Consumer<List<String>> lineFunction ) {
-        stream.forEach((line) -> lineFunction.accept(Arrays.asList(line.split("\\t"))));
+        stream.forEach((line) -> readLine(line, lineFunction));
+    }
+
+    protected void readLine(final String line, final Consumer<List<String>> lineFunction) {
+        final String tabbedLine = line.replaceAll(" +", "\t");
+        lineFunction.accept(Arrays.asList(tabbedLine.split("\\t")));
     }
 }
