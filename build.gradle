@@ -17,6 +17,7 @@ dependencies {
 
 jar {
     manifest {
-        attributes("Implementation-Title": "MarkovModel")
+        attributes( "Implementation-Title": "MarkovModel",
+                    "Main-Class": "com.termaat.markovmodel.App")
     }
 }
