@@ -50,4 +50,25 @@ public class TargetStates {
                 .map((column) -> String.format("%.2f", states.getOrDefault(column, new StateProbability()).getTransitionProbability()))
                 .collect(Collectors.joining("; "));
     }
+
+    /**
+     * Returns the number of visits to this state
+     *
+     * @return The number of visits to this state
+     */
+    public int getNrVisits() {
+        return states.values().stream().mapToInt(prob -> prob.getNumberOfTransitions()).sum();
+    }
+
+    /**
+     * Returns a string representation of the transition counts.
+     *
+     * @param columns A list of columns to order the states by.
+     * @return A string of all counts of the given states.
+     */
+    public String getTransitionCounts( final List<String> columns ) {
+        return columns.stream()
+                .map((column) -> "" + states.getOrDefault(column, new StateProbability()).getNumberOfTransitions())
+                .collect(Collectors.joining("; "));
+    }
 }

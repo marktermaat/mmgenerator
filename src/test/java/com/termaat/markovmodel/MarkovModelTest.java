@@ -74,8 +74,8 @@ public class MarkovModelTest {
     @Test
     public void testModel2() {
         final MarkovModel model = new MarkovModel(2);
-        model.processStateSequence(Arrays.asList(new String[] {"A", "A", "B"}));
         model.processStateSequence(Arrays.asList(new String[] {"A", "B", "A", "A"}));
+        model.processStateSequence(Arrays.asList(new String[] {"A", "A", "B"}));
 
         String expected = "";
         expected += "Previous state; A; B; _end_\n";
@@ -85,5 +85,46 @@ public class MarkovModelTest {
         expected += "A-B; 0.50; 0.00; 0.50\n";
         expected += "B-A; 1.00; 0.00; 0.00";
         assertEquals(expected, model.toString());
+    }
+
+    @Test
+    public void testModel3() {
+        final MarkovModel model = new MarkovModel(1);
+        model.processStateSequence(Arrays.asList(new String[] {"B", "A"}));
+
+        String expected = "";
+        expected += "Previous state; A; B; _end_\n";
+        expected += "_start_; 0.00; 1.00; 0.00\n";
+        expected += "A; 0.00; 0.00; 1.00\n";
+        expected += "B; 1.00; 0.00; 0.00";
+        assertEquals(expected, model.toString());
+    }
+
+    @Test
+    public void testGetStateCounts() {
+        final MarkovModel model = new MarkovModel(1);
+        model.processStateSequence(Arrays.asList(new String[] {"A", "A", "B"}));
+        model.processStateSequence(Arrays.asList(new String[] {"A", "B", "A", "A"}));
+
+        String expected = "";
+        expected += "State; Counts\n";
+        expected += "_start_; 2\n";
+        expected += "A; 5\n";
+        expected += "B; 2";
+        assertEquals(expected, model.getStateCounts());
+    }
+
+    @Test
+    public void testGetTransitionCounts() {
+        final MarkovModel model = new MarkovModel(1);
+        model.processStateSequence(Arrays.asList(new String[] {"A", "A", "B"}));
+        model.processStateSequence(Arrays.asList(new String[] {"A", "B", "A", "A"}));
+
+        String expected = "";
+        expected += "Previous state; A; B; _end_\n";
+        expected += "_start_; 2; 0; 0\n";
+        expected += "A; 2; 2; 1\n";
+        expected += "B; 1; 0; 1";
+        assertEquals(expected, model.getTransitionCounts());
     }
 }

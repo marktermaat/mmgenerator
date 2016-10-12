@@ -89,4 +89,33 @@ public class MarkovModel {
         }
         historyQueue.add(targetState);
     }
+
+    /**
+     * Creates a string representation of all states and their number of visits
+     *
+     * @return The states and the number of visits
+     */
+    public String getStateCounts() {
+        String string = "State; Counts\n";
+
+        string += model.entrySet().stream()
+                .map((entry) -> entry.getKey() + "; " + entry.getValue().getNrVisits())
+                .collect(Collectors.joining("\n"));
+        return string;
+    }
+
+    /**
+     * Creates a string representation of all states and their transition counts
+     *
+     * @return All states and their transition counts
+     */
+    public String getTransitionCounts() {
+        final List<String> columns = getColumns();
+        String string = "Previous state; " + columns.stream().collect(Collectors.joining("; ")) + "\n";
+
+        string += model.entrySet().stream()
+                .map((entry) -> entry.getKey() + "; " + entry.getValue().getTransitionCounts(columns))
+                .collect(Collectors.joining("\n"));
+        return string;
+    }
 }
